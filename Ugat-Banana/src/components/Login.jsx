@@ -1,24 +1,24 @@
 
+if (!localStorage.getItem("users"))
+    localStorage.setItem("users", JSON.stringify([]))
+localStorage.setItem("users", JSON.stringify(["adi"]));
+
 export default function Login(props) {
-    if (!localStorage.getItem("users"))
-        localStorage.setItem("users", JSON.stringify([]))
-    
     if (!localStorage.getItem("loggedUsers"))
         localStorage.setItem("loggedUsers", JSON.stringify([]))
     
-    localStorage.setItem("users", JSON.stringify(["adi"]));
     
     let userName;
     console.log('userName: ', userName);
     //button press
     function handleFormSumbit(savedUser) {
         let users = JSON.parse(localStorage.getItem("users"))
-        if (!users.includes(savedUser)) {
+        if (!users.includes(savedUser) && savedUser) {
             localStorage.setItem("users", JSON.stringify([...users, savedUser]));
         }
         let loggedUsers = JSON.parse(localStorage.getItem("loggedUsers"))
         console.log('loggedUsers: ', loggedUsers);
-        console.log(savedUser)
+        //console.log(savedUser)
         console.log(typeof savedUser !== null)
         if (!loggedUsers.includes(savedUser) && savedUser) {
             localStorage.setItem("loggedUsers", JSON.stringify([...loggedUsers, savedUser]));
