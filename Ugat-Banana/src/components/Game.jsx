@@ -10,17 +10,58 @@ class Player {
     }
 }
 
+function getNextIndex(arr, currentIndex) {
+    console.log(currentIndex);
+    if (currentIndex + 1 >= arr.length) {
+        return 0;
+    } else {
+        console.log(currentIndex + 1);
+        return currentIndex + 1;
+    }
+}
+
+function handleMove(player, action) {
+    switch (action) {
+        case "add":
+            player.currentNumber++;
+            break;
+        case "subtract":
+            player.currentNumber--;
+            break;
+        case "double":
+            player.currentNumber = player.currentNumber * 2;
+            break;
+        case "half":
+            player.currentNumber = player.currentNumber / 2;
+            break;
+    }
+
+    player.numOfMoves++
+}
 
 export default function Game(props) {
-    const testPlayerNamesArr = props.players;
-    const playerObjArr = testPlayerNamesArr.map((p) => new Player(p));
+    const [playerObjArr, setPlayerObjArr] = useState(props.players.map((p) => new Player(p)));
     const [currentPlayer, setCurrentPlayer] = useState(playerObjArr[0]);
-    console.log(playerObjArr);
 
-    // Game
-    console.log(currentPlayer);
-
-    // Initialize the first player at the start of the game
-
-    return <h1>{currentPlayer.name}</h1>;
+    const winner = playerObjArr.find((player) => player.currentNumber === 100)
+    if (winner) {
+        return <h1>Winner is: {winner.name}!!!</h1>;
+    } else {
+        return (
+            <>
+                <h1>{currentPlayer.name}</h1>
+                <h2>Your Number is: {currentPlayer.currentNumber}</h2>
+                <button onClick={() => handleMove(currentPlayer, "add")}>Add 1</button>
+                <button onClick={() => handleMove(currentPlayer, "subtract")}>Remove 1</button>
+                <button onClick={() => handleMove(currentPlayer, "double")}>Double</button>
+                <button onClick={() => handleMove(currentPlayer, "half")}>Half</button>
+                <button
+                    className="display-block center-x"
+                    onClick={() => setCurrentPlayer(playerObjArr[getNextIndex(playerObjArr, playerObjArr.indexOf(currentPlayer))])}
+                >
+                    Next Player!
+                </button>
+            </>
+        );
+    }
 }

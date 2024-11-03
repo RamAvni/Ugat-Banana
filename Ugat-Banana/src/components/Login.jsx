@@ -4,7 +4,7 @@ if (!localStorage.getItem("users"))
 if (!localStorage.getItem("loggedUsers"))
     localStorage.setItem("loggedUsers", JSON.stringify([]))
 
-localStorage.setItem("loggedUsers", JSON.stringify([""]));
+localStorage.setItem("loggedUsers", JSON.stringify([]));
 localStorage.setItem("users", JSON.stringify(["adi"]));
 
 
@@ -33,8 +33,8 @@ export default function Login(props) {
             <h1>Log In</h1>
             <label htmlFor="name">Name</label>
             <input type="text" name="name" onChange={(e) => userName = e.target.value} />
-            <button onClick={handleFormSumbit}>Log In!</button>
-            <button onClick={() => props.setScreen('game')}>Move screen</button>
+            <button className="display-block center-x" onClick={handleFormSumbit}>Log In!</button>
+            <button className="display-block center-x" onClick={() => props.setScreen('game')}>Move screen</button>
         </>
     )
 }
