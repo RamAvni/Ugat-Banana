@@ -1,11 +1,10 @@
 import { useState } from "react";
-const [currentPlayerNumber, setCurrentPlayerNumber] = useState(currentPlayer.currentNumber)
 class Player {
     constructor(name) {
         this.name = name;
         this.numOfMoves = 0;
         this.currentNumber = Math.floor(Math.random() * 99) + 1;
-
+        
         // inGame = has yet to win?
         this.inGame = true;
     }
@@ -28,22 +27,24 @@ export default function Game(props) {
             case "add":
                 player.currentNumber++;
                 break;
-            case "subtract":
-                player.currentNumber--;
+                case "subtract":
+                    player.currentNumber--;
+                    break;
+                    case "double":
+                        player.currentNumber = player.currentNumber * 2;
                 break;
-            case "double":
-                player.currentNumber = player.currentNumber * 2;
-                break;
-            case "half":
-                player.currentNumber = player.currentNumber / 2;
-                break;
-        }
-    
-        player.numOfMoves++
-        setCurrentPlayer(playerObjArr[getNextIndex(playerObjArr, playerObjArr.indexOf(currentPlayer))])
-    }
+                case "half":
+                    player.currentNumber = player.currentNumber / 2;
+                    break;
+                }
+                
+                player.numOfMoves++
+                setCurrentPlayer(playerObjArr[getNextIndex(playerObjArr, playerObjArr.indexOf(currentPlayer))])
+            }
     const [playerObjArr, setPlayerObjArr] = useState(props.players.map((p) => new Player(p)));
     const [currentPlayer, setCurrentPlayer] = useState(playerObjArr[0]);
+    console.log('playerObjArr: ', playerObjArr);
+    const [currentPlayerNumber, setCurrentPlayerNumber] = useState()
 
     const winner = playerObjArr.find((player) => player.currentNumber === 100)
     if (winner) {
@@ -52,6 +53,7 @@ export default function Game(props) {
         return (
             <>
                 <h1>{currentPlayer.name}</h1>
+                {console.log('currentPlayer: ', currentPlayer)}
                 <h2>Your Number is: {currentPlayerNumber}</h2>
                 <button onClick={() => handleMove(currentPlayer, "add")}>Add 1</button>
                 <button onClick={() => handleMove(currentPlayer, "subtract")}>Remove 1</button>
