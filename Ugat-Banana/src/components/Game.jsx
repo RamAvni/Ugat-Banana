@@ -1,4 +1,5 @@
 import { useState } from "react";
+const [currentPlayerNumber, setCurrentPlayerNumber] = useState(currentPlayer.currentNumber)
 class Player {
     constructor(name) {
         this.name = name;
@@ -50,7 +51,7 @@ export default function Game(props) {
         return (
             <>
                 <h1>{currentPlayer.name}</h1>
-                <h2>Your Number is: {currentPlayer.currentNumber}</h2>
+                <h2>Your Number is: {currentPlayerNumber}</h2>
                 <button onClick={() => handleMove(currentPlayer, "add")}>Add 1</button>
                 <button onClick={() => handleMove(currentPlayer, "subtract")}>Remove 1</button>
                 <button onClick={() => handleMove(currentPlayer, "double")}>Double</button>
