@@ -20,26 +20,27 @@ function getNextIndex(arr, currentIndex) {
     }
 }
 
-function handleMove(player, action) {
-    switch (action) {
-        case "add":
-            player.currentNumber++;
-            break;
-        case "subtract":
-            player.currentNumber--;
-            break;
-        case "double":
-            player.currentNumber = player.currentNumber * 2;
-            break;
-        case "half":
-            player.currentNumber = player.currentNumber / 2;
-            break;
-    }
-
-    player.numOfMoves++
-}
 
 export default function Game(props) {
+    function handleMove(player, action) {
+        switch (action) {
+            case "add":
+                player.currentNumber++;
+                break;
+            case "subtract":
+                player.currentNumber--;
+                break;
+            case "double":
+                player.currentNumber = player.currentNumber * 2;
+                break;
+            case "half":
+                player.currentNumber = player.currentNumber / 2;
+                break;
+        }
+    
+        player.numOfMoves++
+        setCurrentPlayer(playerObjArr[getNextIndex(playerObjArr, playerObjArr.indexOf(currentPlayer))])
+    }
     const [playerObjArr, setPlayerObjArr] = useState(props.players.map((p) => new Player(p)));
     const [currentPlayer, setCurrentPlayer] = useState(playerObjArr[0]);
 
