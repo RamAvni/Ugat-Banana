@@ -10,9 +10,9 @@ class Player {
     }
 }
 
-const testPlayerNamesArr = ["ram", "adi", "ramram", "kofi"];
 
 export default function Game(props) {
+    const testPlayerNamesArr = props.players;
     const playerObjArr = testPlayerNamesArr.map((p) => new Player(p));
     const [currentPlayer, setCurrentPlayer] = useState(playerObjArr[0]);
     console.log(playerObjArr);

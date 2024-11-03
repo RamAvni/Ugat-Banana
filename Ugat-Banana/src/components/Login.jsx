@@ -9,7 +9,7 @@ localStorage.setItem("users", JSON.stringify(["adi"]));
 
 
 export default function Login(props) {
-    let userName = props.value
+    let userName ;
     //button press
     function handleFormSumbit() {
         let savedUser = "";
@@ -21,7 +21,8 @@ export default function Login(props) {
         let loggedUsers = JSON.parse(localStorage.getItem("loggedUsers"))
         if (!loggedUsers.includes(userName)) {
             localStorage.setItem("loggedUsers", JSON.stringify([...loggedUsers, savedUser]));
-            let loggedUsers = JSON.parse(localStorage.getItem("loggedUsers"))
+            loggedUsers = JSON.parse(localStorage.getItem("loggedUsers"))
+            console.log('loggedUsers: ', loggedUsers);
             props.setPlayers(loggedUsers)
         }
         //remember to empty the loggedUsers at the logout!!!!!!
@@ -33,6 +34,7 @@ export default function Login(props) {
             <label htmlFor="name">Name</label>
             <input type="text" name="name" onChange={(e) => userName = e.target.value} />
             <button onClick={handleFormSumbit}>Log In!</button>
+            <button onClick={() => props.setScreen('game')}>Move screen</button>
         </>
     )
 }
