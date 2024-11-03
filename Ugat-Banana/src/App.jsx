@@ -6,10 +6,13 @@ import SignUp from "./components/SignUp";
 
 function App() {
     const [screen, setScreen] = useState("login");
-    const [currentPlayers, setCurrentPlayers] = useState([])
+    const [players, setPlayers] = useState([])
 
     if (screen === "login") {
-        return <Login setScreen={setScreen} />;
+        return <Login 
+        setScreen={setScreen}
+        setPlayers={setPlayers}
+        />;
     } else if (screen === 'sign up') {
       return <SignUp setScreen={setScreen} />;
     }
