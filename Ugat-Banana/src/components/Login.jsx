@@ -34,8 +34,8 @@ export default function Login(props) {
             <h1>Log In</h1>
             <label htmlFor="name">Name</label>
             <input type="text" name="name" value={userName} onChange={(e) => userName = e.target.value} />
-            <button onClick={() => handleFormSumbit(userName)}>Log In!</button>
-            <button onClick={() => props.setScreen('game')}>Move screen</button>
+            <button className="display-block center-x" onClick={() => handleFormSumbit(userName)}>Log In!</button>
+            <button className="display-block center-x" onClick={() => props.setScreen('game')}>Move screen</button>
         </>
     )
 }
