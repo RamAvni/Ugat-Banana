@@ -1,34 +1,22 @@
 
 if (!localStorage.getItem("users"))
     localStorage.setItem("users", JSON.stringify([]))
-localStorage.setItem("users", JSON.stringify(["adi"]));
 
-export default function Login(props) {
-    if (!localStorage.getItem("loggedUsers"))
-        localStorage.setItem("loggedUsers", JSON.stringify([]))
-    
-    
+export default function Login(props) {    
     let userName;
-    console.log('userName: ', userName);
     //button press
-    function handleFormSumbit(savedUser) {
+    function handleFormSumbit(userName='') {
         let users = JSON.parse(localStorage.getItem("users"))
-        if (!users.includes(savedUser) && savedUser) {
-            localStorage.setItem("users", JSON.stringify([...users, savedUser]));
+        if (!users.includes(userName) && userName) {
+            localStorage.setItem("users", JSON.stringify([...users, userName]));
         }
-        let loggedUsers = JSON.parse(localStorage.getItem("loggedUsers"))
-        console.log('loggedUsers: ', loggedUsers);
-        //console.log(savedUser)
-        console.log(typeof savedUser !== null)
-        if (!loggedUsers.includes(savedUser) && savedUser) {
-            localStorage.setItem("loggedUsers", JSON.stringify([...loggedUsers, savedUser]));
-            let loggedUsersArray = JSON.parse(localStorage.getItem("loggedUsers"))
-            console.log('loggedUsers: ', loggedUsersArray);
-            props.setPlayers(loggedUsersArray)
+
+        if (!props.players.includes(userName) && userName) {
+            props.setPlayers(prev => [...prev, userName])
         }
-        //remember to empty the loggedUsers at the logout!!!!!!
     }
     //component
+
     return (
         <>
             <h1>Log In</h1>

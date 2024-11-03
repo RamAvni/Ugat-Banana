@@ -9,9 +9,11 @@ function App() {
     const [players, setPlayers] = useState([])
     console.log('players: ', players);
 
+
     if (screen === "login") {
         return <Login 
         setScreen={setScreen}
+        players={players}
         setPlayers={setPlayers}
         />;
     } else if (screen === 'sign up') {
