@@ -7,6 +7,7 @@ import SignUp from "./components/SignUp";
 function App() {
     const [screen, setScreen] = useState("login");
     const [players, setPlayers] = useState([])
+    console.log('players: ', players);
 
     if (screen === "login") {
         return <Login 
@@ -17,7 +18,10 @@ function App() {
       return <SignUp setScreen={setScreen} />;
     }
      else if (screen === "game") {
-        return <Game setScreen={setScreen} />;
+        return <Game 
+        setScreen={setScreen}
+        players={players}
+        />;
     }
 }
 
