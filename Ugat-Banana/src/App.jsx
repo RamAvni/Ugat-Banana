@@ -3,11 +3,14 @@ import "./App.css";
 import Login from "./components/Login";
 import Game from "./components/Game";
 import SignUp from "./components/SignUp";
+import LeaderBoard from "./components/leaderBoard";
 
 function App() {
     const [screen, setScreen] = useState("login");
     const [players, setPlayers] = useState([])
+    const [numOfMoves, setNumOfMoves] = useState([])
     console.log('players: ', players);
+    console.log(numOfMoves)
 
 
     if (screen === "login") {
@@ -23,6 +26,15 @@ function App() {
         return <Game 
         setScreen={setScreen}
         players={players}
+        numOfMoves={numOfMoves}
+        setNumOfMoves={setNumOfMoves}
+        />;
+    }
+    else if (screen === "leaderBoard") {
+        return <LeaderBoard 
+        setScreen={setScreen}
+        players={players}
+        numOfMoves={numOfMoves}
         />;
     }
 }
