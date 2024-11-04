@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 class Player {
     constructor(name) {
         this.name = name;
@@ -20,7 +21,6 @@ function getNextIndex(arr, currentIndex) {
     }
 }
 
-
 export default function Game(props) {
     function handleMove(player, action) {
         switch (action) {
@@ -33,28 +33,28 @@ export default function Game(props) {
                     case "double":
                         player.currentNumber = player.currentNumber * 2;
                 break;
-                case "half":
-                    player.currentNumber = player.currentNumber / 2;
-                    break;
-                }
-                
-                player.numOfMoves++
-                setCurrentPlayer(playerObjArr[getNextIndex(playerObjArr, playerObjArr.indexOf(currentPlayer))])
-            }
+            case "half":
+                player.currentNumber = player.currentNumber / 2;
+                break;
+        }
+
+        player.numOfMoves++;
+    }
+
+
     const [playerObjArr, setPlayerObjArr] = useState(props.players.map((p) => new Player(p)));
     const [currentPlayer, setCurrentPlayer] = useState(playerObjArr[0]);
-    console.log('playerObjArr: ', playerObjArr);
-    const [currentPlayerNumber, setCurrentPlayerNumber] = useState()
+    const [currentPlayerNumber, setCurrentPlayerNumber] = useState(0);
+    
+    const winner = playerObjArr.find((player) => player.currentNumber === 100);
 
-    const winner = playerObjArr.find((player) => player.currentNumber === 100)
     if (winner) {
         return <h1>Winner is: {winner.name}!!!</h1>;
     } else {
         return (
             <>
                 <h1>{currentPlayer.name}</h1>
-                {console.log('currentPlayer: ', currentPlayer)}
-                <h2>Your Number is: {currentPlayerNumber}</h2>
+                <h2>Your Number is: {currentPlayer.currentNumber}</h2>
                 <button onClick={() => handleMove(currentPlayer, "add")}>Add 1</button>
                 <button onClick={() => handleMove(currentPlayer, "subtract")}>Remove 1</button>
                 <button onClick={() => handleMove(currentPlayer, "double")}>Double</button>
