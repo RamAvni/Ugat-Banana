@@ -57,6 +57,8 @@ export default function Game(props) {
                 <>
                     <h1>Winner is: {currentPlayer.name}!!!</h1>
                     <h2>{`${currentPlayer.name}'s Number of Moves: ${currentPlayer.numOfMoves}`}</h2>
+                    <button onClick={() => handleWinning(currentPlayer, "playAgain")}>Play again</button>
+                    <button onClick={() => handleWinning(currentPlayer, "logOut")}>Log out</button>
                 </>
             );
         } else {
