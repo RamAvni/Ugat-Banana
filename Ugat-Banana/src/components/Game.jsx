@@ -6,7 +6,7 @@ class Player {
         this.name = name;
         this.numOfMoves = 0;
         this.currentNumber = Math.floor(Math.random() * 99) + 1;
-        
+
         // inGame = has yet to win?
         this.inGame = true;
     }
@@ -26,11 +26,6 @@ export default function Game(props) {
                     [player.name]: { ...player, currentNumber: player.currentNumber + 1, numOfMoves: player.numOfMoves + 1 },
                 });
                 break;
-                case "subtract":
-                    player.currentNumber--;
-                    break;
-                    case "double":
-                        player.currentNumber = player.currentNumber * 2;
             case "subtract":
                 setPlayerObj({
                     ...playerObj,
