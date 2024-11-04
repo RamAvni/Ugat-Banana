@@ -11,61 +11,53 @@ class Player {
     }
 }
 
-function getNextIndex(arr, currentIndex) {
-    console.log(currentIndex);
-    if (currentIndex + 1 >= arr.length) {
-        return 0;
-    } else {
-        console.log(currentIndex + 1);
-        return currentIndex + 1;
-    }
-}
-
 export default function Game(props) {
+    const [playerObj, setPlayerObj] = useState(
+        props.players.reduce((accumulator, current) => ({ ...accumulator, [current]: new Player(current) }), {})
+    );
+    console.log("props.players: ", props.players);
+    console.log("playerObj: ", playerObj);
     function handleMove(player, action) {
         switch (action) {
             case "add":
-                player.currentNumber++;
+                setPlayerObj({ ...playerObj, [player.name]: { ...player, currentNumber: player.currentNumber + 1, numOfMoves: player.numOfMoves + 1 } });
                 break;
                 case "subtract":
                     player.currentNumber--;
                     break;
                     case "double":
                         player.currentNumber = player.currentNumber * 2;
+            case "subtract":
+                setPlayerObj({ ...playerObj, [player.name]: { ...player, currentNumber: player.currentNumber - 1, numOfMoves: player.numOfMoves + 1 } })
+                break;
+            case "double":
+                setPlayerObj({ ...playerObj, [player.name]: { ...player, currentNumber: player.currentNumber * 2, numOfMoves: player.numOfMoves + 1 } })
                 break;
             case "half":
-                player.currentNumber = player.currentNumber / 2;
+                setPlayerObj({ ...playerObj, [player.name]: { ...player, currentNumber: player.currentNumber / 2, numOfMoves: player.numOfMoves + 1 } });
                 break;
         }
-
-        player.numOfMoves++;
     }
 
+    // // const [currentPlayer, setCurrentPlayer] = useState(playerObjArr[0]);
 
-    const [playerObjArr, setPlayerObjArr] = useState(props.players.map((p) => new Player(p)));
-    const [currentPlayer, setCurrentPlayer] = useState(playerObjArr[0]);
-    const [currentPlayerNumber, setCurrentPlayerNumber] = useState(0);
-    
-    const winner = playerObjArr.find((player) => player.currentNumber === 100);
-
+    console.log(Object.values(playerObj))
+    const winner = Object.values(playerObj).find(p => p.currentNumber === 100);
     if (winner) {
         return <h1>Winner is: {winner.name}!!!</h1>;
     } else {
-        return (
-            <>
-                <h1>{currentPlayer.name}</h1>
-                <h2>Your Number is: {currentPlayer.currentNumber}</h2>
-                <button onClick={() => handleMove(currentPlayer, "add")}>Add 1</button>
-                <button onClick={() => handleMove(currentPlayer, "subtract")}>Remove 1</button>
-                <button onClick={() => handleMove(currentPlayer, "double")}>Double</button>
-                <button onClick={() => handleMove(currentPlayer, "half")}>Half</button>
-                <button
-                    className="display-block center-x"
-                    onClick={() => setCurrentPlayer(playerObjArr[getNextIndex(playerObjArr, playerObjArr.indexOf(currentPlayer))])}
-                >
-                    Next Player!
-                </button>
-            </>
-        );
+        return Object.values(playerObj).map((currentPlayer) => {
+            console.log(currentPlayer)
+            return (
+                <>
+                    <h1>{currentPlayer.name}</h1>
+                    <h2>Your Number is: {currentPlayer.currentNumber}</h2>
+                    <button onClick={() => handleMove(currentPlayer, "add")}>Add 1</button>
+                    <button onClick={() => handleMove(currentPlayer, "subtract")}>Remove 1</button>
+                    <button onClick={() => handleMove(currentPlayer, "double")}>Double</button>
+                    <button onClick={() => handleMove(currentPlayer, "half")}>Half</button>
+                </>
+            );
+        });
     }
 }
