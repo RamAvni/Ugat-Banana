@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { useState } from "react";
 
 class Player {
@@ -20,29 +21,46 @@ export default function Game(props) {
     function handleMove(player, action) {
         switch (action) {
             case "add":
-                setPlayerObj({ ...playerObj, [player.name]: { ...player, currentNumber: player.currentNumber + 1, numOfMoves: player.numOfMoves + 1 } });
+                setPlayerObj({
+                    ...playerObj,
+                    [player.name]: { ...player, currentNumber: player.currentNumber + 1, numOfMoves: player.numOfMoves + 1 },
+                });
                 break;
             case "subtract":
-                setPlayerObj({ ...playerObj, [player.name]: { ...player, currentNumber: player.currentNumber - 1, numOfMoves: player.numOfMoves + 1 } })
+                setPlayerObj({
+                    ...playerObj,
+                    [player.name]: { ...player, currentNumber: player.currentNumber - 1, numOfMoves: player.numOfMoves + 1 },
+                });
                 break;
             case "double":
-                setPlayerObj({ ...playerObj, [player.name]: { ...player, currentNumber: player.currentNumber * 2, numOfMoves: player.numOfMoves + 1 } })
+                setPlayerObj({
+                    ...playerObj,
+                    [player.name]: { ...player, currentNumber: player.currentNumber * 2, numOfMoves: player.numOfMoves + 1 },
+                });
                 break;
             case "half":
-                setPlayerObj({ ...playerObj, [player.name]: { ...player, currentNumber: player.currentNumber / 2, numOfMoves: player.numOfMoves + 1 } });
+                setPlayerObj({
+                    ...playerObj,
+                    [player.name]: { ...player, currentNumber: player.currentNumber / 2, numOfMoves: player.numOfMoves + 1 },
+                });
                 break;
         }
     }
 
     // // const [currentPlayer, setCurrentPlayer] = useState(playerObjArr[0]);
 
-    console.log(Object.values(playerObj))
-    const winner = Object.values(playerObj).find(p => p.currentNumber === 100);
-    if (winner) {
-        return <h1>Winner is: {winner.name}!!!</h1>;
-    } else {
-        return Object.values(playerObj).map((currentPlayer) => {
-            console.log(currentPlayer)
+    
+    return Object.values(playerObj).map((currentPlayer) => {
+        // const winner = Object.values(playerObj).find((p) => p.currentNumber === 100);
+        if (currentPlayer.currentNumber === 100) {
+            return (
+                <>
+                    <h1>Winner is: {currentPlayer.name}!!!</h1>
+                    <h2>{`${currentPlayer.name}'s Number of Moves: ${currentPlayer.numOfMoves}`}</h2>
+                </>
+            );
+        } else {
+            console.log(currentPlayer);
             return (
                 <>
                     <h1>{currentPlayer.name}</h1>
@@ -53,6 +71,6 @@ export default function Game(props) {
                     <button onClick={() => handleMove(currentPlayer, "half")}>Half</button>
                 </>
             );
-        });
-    }
+        }
+    });
 }
