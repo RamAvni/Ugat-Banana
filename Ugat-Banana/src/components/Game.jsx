@@ -46,19 +46,30 @@ export default function Game(props) {
                 break;
         }
     }
+    function playAgain(currentPlayer) {
+        setPlayerObj({
+            ...playerObj,
+            [currentPlayer.name]: { ...currentPlayer, currentNumber: Math.floor(Math.random() * 99) + 1, numOfMoves: 0}
 
+        }
+        // currentPlayer.numOfMoves = 0;
+        // currentPlayer.currentNumber = Math.floor(Math.random() * 99) + 1;
+    )}
+
+    
     // // const [currentPlayer, setCurrentPlayer] = useState(playerObjArr[0]);
 
     
     return Object.values(playerObj).map((currentPlayer) => {
         // const winner = Object.values(playerObj).find((p) => p.currentNumber === 100);
         if (currentPlayer.currentNumber === 100) {
+            console.log(currentPlayer)
             return (
                 <>
                     <h1>Winner is: {currentPlayer.name}!!!</h1>
                     <h2>{`${currentPlayer.name}'s Number of Moves: ${currentPlayer.numOfMoves}`}</h2>
-                    <button onClick={() => handleWinning(currentPlayer, "playAgain")}>Play again</button>
-                    <button onClick={() => handleWinning(currentPlayer, "logOut")}>Log out</button>
+                    <button onClick={() => playAgain(currentPlayer)}>Play again</button>
+                    {/* <button onClick={() => logOut(currentPlayer)}>Log out</button> */}
                 </>
             );
         } else {
